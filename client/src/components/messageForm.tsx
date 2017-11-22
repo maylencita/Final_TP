@@ -1,7 +1,9 @@
 import * as React from 'react'
 import InputText from '../components/inputText'
 import * as Ev from '../commons/eventModels'
-// import * as api from '../commons/api'
+import * as api from '../commons/api'
+import { User } from '../commons/models'  
+import AppStore from '../store'
 
 interface FormState { 
   message: string 
@@ -10,6 +12,7 @@ interface FormState {
 interface FormProps {
   channelId: string, 
   questionToAnswer?: string
+  user?: User
 }
 
 class MessageForm extends React.Component<FormProps, FormState> {
@@ -30,12 +33,24 @@ class MessageForm extends React.Component<FormProps, FormState> {
     )
   }
 
-  onTextChange(value: string) {
-    // TODO
+  onTextChange = (value: string) => {
+    this.setState({
+      message: value
+    })
   }
 
   sendQuestion = (event: Ev.Submit) => {
-    // TODO use api.sendQuestion
+    if (this.props.user) {
+      api.sendQuestion({ 
+        destinataire: this.props.channelId,
+        emetteur: this.props.user.pseudo,
+        content: this.state.message
+      }).then(channels => {
+        AppStore.updateChannels(channels || [])      
+      })
+    }
+
+    event.preventDefault()
   }
 
   sendAnswer() {

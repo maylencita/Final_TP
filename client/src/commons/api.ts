@@ -42,7 +42,8 @@ interface QuestionPayload {
 }
 
 export function sendQuestion(question: QuestionPayload) {
-  // const url = `${SERVER_URL}/channels/${question.destinataire}/questions`
-  // const method = 'PUT'
-  return 'TODO'
+  return fetchJson<Array<Channel>>(`$SERVER_URL}/channels/${question.destinataire}/questions`, {
+    method: 'PUT',
+    body: question
+  })
 }

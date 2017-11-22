@@ -1,6 +1,7 @@
 import * as React from 'react'
 import Layout from '../layout'
 
+import { User } from '../commons/models'  
 import QuestionComponent from '../components/question'
 import MessageForm from '../components/messageForm'
 import { QuestionWithAnswers } from '../commons/models'
@@ -11,6 +12,7 @@ interface MessagesProps {
   channelId: string
   channels: Array<string>
   questionToAnswer?: string
+  user?: User 
 }
 interface MessagesState {
   messages: Array<QuestionWithAnswers>
@@ -36,7 +38,7 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
           {renderQuestions(this.state.messages)}
         </div>
         <div className="messagesContainer_footer">
-          <MessageForm channelId={this.props.channelId} questionToAnswer={this.props.questionToAnswer} />
+          <MessageForm channelId={this.props.channelId} questionToAnswer={this.props.questionToAnswer} user={this.props.user}/>
           <div className="messagesContainer_notifBar" />
         </div>
       </Layout>
