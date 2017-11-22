@@ -36,13 +36,18 @@ export function addChannel(request: Request, response: Response) {
 export function readChannel(request: Request, response: Response) {
   const channelId = request.params.channelId
   if(!!channelId){
-    const questionsWithAnswers = 'TODO'
+    const questions = Store.questions().filter(msg => msg.destinataire === channelId)
+    const questionsWithAnswers = questions.map(q => ({ 
+      question:q,
+      answers: Store.answers().filter(msg => msg.question_id === q.id)
+    }))
     response.send(questionsWithAnswers)
   } else response.send([])
 }
 
 export function addQuestion(request: Request, response: Response) {
-  response.send('TODO')
+  Store.addQuestion(request.body)
+  response.send(request.body)
 }
 
 export function sendAnswer(request: Request, response: Response) {
