@@ -35,6 +35,10 @@ class Store {
     }))    
   }
 
+  disabledAnswerMode = () => {
+    return ; 
+  }
+
   setQuestionToAnswer = (questionId: string) => {
     this._setState(() => ({
       questionToAnswer: questionId

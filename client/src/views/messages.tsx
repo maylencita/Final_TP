@@ -6,6 +6,7 @@ import QuestionComponent from '../components/question'
 import MessageForm from '../components/messageForm'
 import { QuestionWithAnswers } from '../commons/models'
 import * as api from '../commons/api'
+import AppStore from '../store'
 
 interface MessagesProps {
   appName: string
@@ -39,7 +40,7 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
     return (
       <Layout {...this.props}>
         <div className="messagesContainer_title">
-          <h2># {this.props.channelId}</h2>
+          <h2 onClick={AppStore.disableAnswerMode()}># {this.props.channelId}</h2>
           </div>
           <div className="messagesContainer_messages">
           {renderQuestions(this.state.messages)}
