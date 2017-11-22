@@ -4,7 +4,8 @@ import Layout from '../layout'
 import QuestionComponent from '../components/question'
 import MessageForm from '../components/messageForm'
 import { QuestionWithAnswers } from '../commons/models'
-// import * as api from '../commons/api'
+import * as api from '../commons/api'
+import App from '../store'
 
 interface MessagesProps {
   appName: string
@@ -23,14 +24,21 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
   }
 
   componentWillMount() {
-    // TODO use api.getMessages(this.props.channelId)
+    api.getMessages(this.props.channelId)
+    .then(messages => {
+      this.setState(() => ({
+        messages: messages
+      }))
+    }).catch(error => {
+      console.log("Ahah tu es nul (view messages)", error)
+    })
   }
 
   render() {
     return (
       <Layout {...this.props}>
         <div className="messagesContainer_title">
-          <h2># {this.props.channelId}</h2>
+          <h2 onClick={this.disableAnswer}># {this.props.channelId}</h2>
           </div>
           <div className="messagesContainer_messages">
           {renderQuestions(this.state.messages)}
@@ -41,6 +49,10 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
         </div>
       </Layout>
     )   
+  }
+
+  disableAnswer = () => {
+    App.disableAnswerMode()
   }
 }
 

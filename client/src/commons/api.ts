@@ -42,7 +42,30 @@ interface QuestionPayload {
 }
 
 export function sendQuestion(question: QuestionPayload) {
-  // const url = `${SERVER_URL}/channels/${question.destinataire}/questions`
+  const url = `${SERVER_URL}/channels/${question.destinataire}/questions`
+  const method = 'PUT'
+  return fetchJson<Array<Question>>(url, {
+    method: method,
+    body: question
+  }).catch(error => {
+    console.error('Impossible to get questions: ', error)
+  })
+}
+
+interface AnswerPayload {
+  idQuestion: string,
+  emetter: string,
+  content: string
+}
+
+export function sendAnswer(answer: AnswerPayload) {
+  // const url = `${SERVER_URL}/channels/${question.}/questions/:questionId`
   // const method = 'PUT'
-  return 'TODO'
+  // return fetchJson<Array<Question>>(url, {
+  //   method: method,
+  //   body: question
+  // }).catch(error => {
+  //   console.error('Impossible to get questions: ', error)
+  // })
+  // TODO
 }

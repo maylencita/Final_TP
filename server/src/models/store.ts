@@ -16,7 +16,7 @@ class Store {
   private state: ServerState = {
     users: [this.admin],
     channels: firstChannel,
-    questions: generateQuestions('General', 10),
+    questions: generateQuestions('General', 2),
     answers: []
   }
 
@@ -58,7 +58,11 @@ class Store {
   }
 
   addQuestion(question: Question){
-    // TODO
+    this.state = {
+      ...this.state,
+      questions: [...this.state.questions, question]
+    }
+    return true
   }
 
   users(){

@@ -52,6 +52,12 @@ class Store {
     }) 
   }
 
+  disableAnswerMode(){
+    this._setState(() => ({
+      questionToAnswer: null
+    }))
+  }
+
 }
 
 const AppStore = new Store()
