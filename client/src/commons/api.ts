@@ -46,3 +46,15 @@ export function sendQuestion(question: QuestionPayload) {
   // const method = 'PUT'
   return 'TODO'
 }
+
+interface AnswerPayLoad {
+  //id
+  //emmetteur
+  //contenu
+}
+
+export function sendAnswer(Answer: AnswerPayload) {
+  // const url = `${SERVER_URL}/channels/${question.destinataire}/questions`
+  // const method = 'PUT'
+  return 'TODO'
+}
