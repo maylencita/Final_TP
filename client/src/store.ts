@@ -58,13 +58,6 @@ class Store {
     }))
   }
 
-  addQuestion(question: Question){
-    this.state = {
-      ...this.state,
-      questions: [...this._setState.questions, question]
-    }
-  }
-
 }
 
 const AppStore = new Store()

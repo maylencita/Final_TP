@@ -1,7 +1,7 @@
 import * as React from 'react'
 import InputText from '../components/inputText'
 import * as Ev from '../commons/eventModels'
-// import * as api from '../commons/api'
+import * as api from '../commons/api'
 
 interface FormState { 
   message: string 
@@ -37,7 +37,14 @@ class MessageForm extends React.Component<FormProps, FormState> {
   }
 
   sendQuestion = (event: Ev.Submit) => {
-    // TODO use api.sendQuestion
+    api.sendQuestion({
+      destinataire: this.props.channelId,
+      emetteur: "admin",
+      content: this.state.message
+    });
+    this.setState({
+      message: ""
+    })
   }
 
   sendAnswer() {

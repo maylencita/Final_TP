@@ -42,19 +42,30 @@ interface QuestionPayload {
 }
 
 export function sendQuestion(question: QuestionPayload) {
-  // const url = `${SERVER_URL}/channels/${question.destinataire}/questions`
-  // const method = 'PUT'
-  return 'TODO'
+  const url = `${SERVER_URL}/channels/${question.destinataire}/questions`
+  const method = 'PUT'
+  return fetchJson<Array<Question>>(url, {
+    method: method,
+    body: question
+  }).catch(error => {
+    console.error('Impossible de avoir des questions', error)
+  })
 }
 
 interface AnswerPayLoad {
-  //id
-  //emmetteur
-  //contenu
+  idQuestion: string,
+  emetteur: string,
+  contenu: string
 }
 
-export function sendAnswer(Answer: AnswerPayload) {
-  // const url = `${SERVER_URL}/channels/${question.destinataire}/questions`
-  // const method = 'PUT'
-  return 'TODO'
+export function sendAnswer(answer: AnswerPayLoad) {
+  const url = `${SERVER_URL}/channels/${answer.destinataire}/questions`
+  const method = 'PUT'
+  // question passee en props ?
+  return fetchJson<Array<Question>>(url, {
+    method: method,
+    body: answer
+  }).catch(error => {
+    console.error('Impossible de avoir des reponses', error)
+  })
 }
