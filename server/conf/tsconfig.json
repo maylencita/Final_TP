@@ -11,8 +11,7 @@
     "suppressImplicitAnyIndexErrors": true,
     "strictNullChecks": true,
     "skipLibCheck": true,
-    "typeRoots": [ "@types/", "node_modules/@types/" ],
-    "types": [ "react", "react-dom", "whatwg-fetch", "es6-promise" ]
+    "typeRoots": [ "node_modules/@types/" ]
   },
   "compileOnSave": false,
   "buildOnSave": false,

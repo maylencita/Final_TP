@@ -46,12 +46,26 @@ export function readChannel(request: Request, response: Response) {
 }
 
 export function addQuestion(request: Request, response: Response) {
-  Store.addQuestion(request.body)
-  response.send(request.body)
+  const channelId = request.params.channelId
+  if(!!channelId && Store.channels().findIndex(chan => chan.name === channelId) >=0){
+    Store.addQuestion(request.body)
+    response.send(request.body)
+  } else{
+    response.send([])
+  }
 }
 
 export function sendAnswer(request: Request, response: Response) {
-  response.send('TODO')  
+  const questionId = request.params.questionId
+  const channelId = request.params.channelId
+  if((!!questionId && Store.questions().findIndex(q => q.id === questionId) >=0)
+  && (!!channelId && Store.channels().findIndex(chan => chan.name === channelId) >=0)){
+    Store.addAnswer(
+      request.body
+    )
+  } else{
+    response.send([])
+  }
 }
 
 export function noteQuestion(request: Request, response: Response) {
