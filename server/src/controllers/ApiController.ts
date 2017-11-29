@@ -47,7 +47,7 @@ export function readChannel(request: Request, response: Response) {
 
 export function addQuestion(request: Request, response: Response) {
   Store.addQuestion(request.body)
-  response.send(request.body)
+  response.send(Store.channels)
 }
 
 export function sendAnswer(request: Request, response: Response) {
