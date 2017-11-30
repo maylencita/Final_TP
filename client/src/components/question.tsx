@@ -63,6 +63,7 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
   }
 
   answerQuestion = () => {
+    console.debug(this.props)
     AppStore.setQuestionToAnswer(this.props.question.id)
   }
 }

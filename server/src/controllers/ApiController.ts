@@ -21,6 +21,7 @@ export function getUsers(request: Request, response: Response) {
 }
 
 export function getChannels(request: Request, response: Response) {
+  console.log(Store.channels());
   response.send(Store.channels())
 }
 
@@ -35,8 +36,10 @@ export function addChannel(request: Request, response: Response) {
 
 export function readChannel(request: Request, response: Response) {
   const channelId = request.params.channelId
+  console.log(channelId);
   if(!!channelId){
     const questions = Store.questions().filter(msg => msg.destinataire === channelId)
+    console.log(questions);
     const questionsWithAnswers = questions.map(q => ({ 
       question:q,
       answers: Store.answers().filter(msg => msg.question_id === q.id)
@@ -46,10 +49,17 @@ export function readChannel(request: Request, response: Response) {
 }
 
 export function addQuestion(request: Request, response: Response) {
-  const channelId = request.params.channelId
+  const channelId = request.params.channelId;
+  const question = request.body;
   if(!!channelId && Store.channels().findIndex(chan => chan.name === channelId) >=0){
-    Store.addQuestion(request.body)
-    response.send(request.body)
+    Store.addQuestion({
+      id:"" + (Store.questions().length),
+      destinataire: request.body.destinataire,
+      emetteur: request.body.emetteur,
+      note: 0,
+      content: request.body.content
+    })
+    response.send(Store.channels)
   } else{
     response.send([])
   }
@@ -63,6 +73,7 @@ export function sendAnswer(request: Request, response: Response) {
     Store.addAnswer(
       request.body
     )
+    response.send(Store.channels)
   } else{
     response.send([])
   }

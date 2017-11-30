@@ -53,9 +53,19 @@ class MessageForm extends React.Component<FormProps, FormState> {
     event.preventDefault()
   }
 
-  sendAnswer() {
-    // TODO
-  }
+  sendAnswer = (event: Ev.Submit) => {
+    if (this.props.user && this.props.questionToAnswer) {
+      api.sendAnswer({ 
+        questionId: this.props.questionToAnswer,
+        emetteur: this.props.user.pseudo,
+        content: this.state.message
+      },
+    this.props.channelId).then(channels => {
+        AppStore.updateChannels(channels || [])      
+      })
+    }
+  event.preventDefault()
+}
 }
 
 export default MessageForm

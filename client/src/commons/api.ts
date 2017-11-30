@@ -47,3 +47,16 @@ export function sendQuestion(question: QuestionPayload) {
     body: question
   })
 }
+
+interface AnswerPayload {
+  questionId: string,
+  emetteur: string,
+  content: string
+}
+
+export function sendAnswer(answer: AnswerPayload, channelId: string) {
+  return fetchJson<Array<Channel>>(`${SERVER_URL}/channels/${channelId}/questions/${answer.questionId}`, {
+    method: 'PUT',
+    body: answer
+  })
+}
