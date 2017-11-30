@@ -54,7 +54,6 @@ class MessageForm extends React.Component<FormProps, FormState> {
   }
 
   sendAnswer = (event: Ev.Submit) => {
-    console.debug('sendAnswer')
     if (this.props.user && this.props.questionToAnswer) {
       api.sendAnswer({ 
         question_id: this.props.questionToAnswer,

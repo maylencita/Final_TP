@@ -86,8 +86,6 @@ export function noteQuestion(request: Request, response: Response) {
 }
 
 export function noteAnswer(request: Request, response: Response) {
-  console.log(request.params.answerId);
   Store.addNoteAnswer(request.params.answerId);
-  console.log(Store.answers())
   response.send(Store.channels())  
 }
