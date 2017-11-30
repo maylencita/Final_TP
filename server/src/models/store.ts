@@ -49,6 +49,22 @@ class Store {
     }
   }
 
+  addNoteQuestion(questionId: string){
+    this.state.questions.map(question => {
+      if (question.id === questionId) {
+        question.note ++; 
+      }
+    })
+  }
+
+  addNoteAnswer(answerId: string){
+    this.state.answers.map(answer => {
+      if (answer.id === answerId) {
+        answer.note ++; 
+      }
+    })
+  }
+
   addChannel(channel: Channel){
     this.state = {
       ...this.state,

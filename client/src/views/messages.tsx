@@ -36,6 +36,20 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
     })
   }
 
+  componentDidUpdate(prevProps: MessagesProps, prevState: MessagesState): void {
+    api.getMessages(this.props.channelId)
+    .then(messages => {
+      if (prevState.messages === this.state.messages) {
+        this.setState(() => ({
+          messages
+        }))
+      }
+     
+    }).catch(error => {
+      console.error('oops', error)
+    })
+  }
+
   render() {
     return (
       <Layout {...this.props}>
@@ -59,7 +73,7 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
 
 function renderQuestions(questions: Array<QuestionWithAnswers>) {
   return questions.map(q => (
-    <QuestionComponent question={q.question} answers={q.answers} key={q.question.id} />
+    <QuestionComponent question={q.question} answers={q.answers} key={q.question.id}/>
   ))
 }
 

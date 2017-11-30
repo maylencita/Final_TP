@@ -18,7 +18,7 @@ class App extends React.Component<AppProps, AppState> {
     super(props)
     this.state = {
       channels: [],
-      serverStatus: ''
+      serverStatus: '',
     }
     AppStore.bindSetState(this.setState.bind(this))
     console.debug('App started!', AppStore)

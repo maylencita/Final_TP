@@ -49,14 +49,30 @@ export function sendQuestion(question: QuestionPayload) {
 }
 
 interface AnswerPayload {
-  questionId: string,
+  question_id: string,
   emetteur: string,
   content: string
 }
 
 export function sendAnswer(answer: AnswerPayload, channelId: string) {
-  return fetchJson<Array<Channel>>(`${SERVER_URL}/channels/${channelId}/questions/${answer.questionId}`, {
+  return fetchJson<Array<Channel>>(`${SERVER_URL}/channels/${channelId}/questions/${answer.question_id}`, {
     method: 'PUT',
     body: answer
   })
+}
+
+export function addPointsToQuestion(channelId: string, questionId: string) {
+  return fetchJson<Array<Channel>>(`${SERVER_URL}/channels/${channelId}/questions/${questionId}/note`, {
+    method: 'POST'
+  })
+}
+
+export function addPointsToAnswer(channelId: string, answerId: string) {
+  return fetchJson<Array<Channel>>(`${SERVER_URL}/channels/${channelId}/answers/${answerId}/note`, {
+    method: 'POST'
+  })
+}
+
+export function getUsers() {
+  return fetchJson<Array<User>>(`${SERVER_URL}/users`)
 }

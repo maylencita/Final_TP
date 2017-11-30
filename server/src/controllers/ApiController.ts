@@ -21,7 +21,6 @@ export function getUsers(request: Request, response: Response) {
 }
 
 export function getChannels(request: Request, response: Response) {
-  console.log(Store.channels());
   response.send(Store.channels())
 }
 
@@ -36,10 +35,8 @@ export function addChannel(request: Request, response: Response) {
 
 export function readChannel(request: Request, response: Response) {
   const channelId = request.params.channelId
-  console.log(channelId);
   if(!!channelId){
     const questions = Store.questions().filter(msg => msg.destinataire === channelId)
-    console.log(questions);
     const questionsWithAnswers = questions.map(q => ({ 
       question:q,
       answers: Store.answers().filter(msg => msg.question_id === q.id)
@@ -70,9 +67,13 @@ export function sendAnswer(request: Request, response: Response) {
   const channelId = request.params.channelId
   if((!!questionId && Store.questions().findIndex(q => q.id === questionId) >=0)
   && (!!channelId && Store.channels().findIndex(chan => chan.name === channelId) >=0)){
-    Store.addAnswer(
-      request.body
-    )
+    Store.addAnswer({
+      id: "" + (Store.answers().length),
+      question_id: request.body.question_id,
+      emetteur: request.body.emetteur,
+      note:0,
+      content:request.body.content
+    })
     response.send(Store.channels)
   } else{
     response.send([])
@@ -80,9 +81,13 @@ export function sendAnswer(request: Request, response: Response) {
 }
 
 export function noteQuestion(request: Request, response: Response) {
-  response.send('TODO')  
+  Store.addNoteQuestion(request.params.questionId);
+  response.send(Store.channels())  
 }
 
 export function noteAnswer(request: Request, response: Response) {
-  response.send('TODO')  
+  console.log(request.params.answerId);
+  Store.addNoteAnswer(request.params.answerId);
+  console.log(Store.answers())
+  response.send(Store.channels())  
 }
