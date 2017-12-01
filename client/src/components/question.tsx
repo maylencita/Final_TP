@@ -4,6 +4,7 @@ import AnswerComponent from './answer'
 import { UserIcon, UserName } from './user'
 import { Question, Answer } from '../commons/models'
 import AppStore from '../store'
+import * as api from '../commons/api'
 
 interface QuestionProps {
   question: Question
@@ -60,6 +61,10 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
       ...this.state,
       points: this.state.points + 1
     })
+    api.sendPointsQuestion(
+        this.state.points + 1,
+        this.props.question.destinataire,
+        this.props.question.id);
   }
 
   answerQuestion = () => {

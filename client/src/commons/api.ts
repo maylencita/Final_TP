@@ -68,5 +68,15 @@ export function sendAnswer(answer: AnswerPayload) {
   }).catch(error => {
     console.error('Impossible to get questions: ', error)
   })
-  
+} 
+
+export function sendPointsQuestion(note: number, channelId: string, questionId: string ) {
+  const url = `${SERVER_URL}/channels/${channelId}/questions/${questionId}/note`
+  const method = `POST`
+  return fetchJson<Array<Question>>(url, {
+    method: method,
+    body: {note}
+  }).catch(error => {
+    console.error('Impossible to send points: ', error)
+  })  
 }

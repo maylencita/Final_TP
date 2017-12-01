@@ -68,6 +68,27 @@ class Store {
   }
 
   addAnswer(answer: Answer){
+    answer.id = uuid.v4();
+    this.state = {
+      ...this.state,
+      answers: [...this.state.answers, answer]
+    }
+    return true
+  }
+
+  noteQuestion(note: {note: number}, questionId: string ){
+    const questions = this.state.questions;
+    if (Math.abs(note.note) < 6) {
+      for (let q of questions) {
+        if (q.id == questionId) {
+          q.note = note.note;
+        }
+      }
+      this.state = {
+        ...this.state,
+        questions: questions
+      }
+    }
     return true
   }
 
@@ -90,6 +111,7 @@ class Store {
   toJSON() {
     return this.state
   }
+
 }
 
 const store = new Store()

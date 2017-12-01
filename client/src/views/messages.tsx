@@ -2,6 +2,7 @@ import * as React from 'react'
 import Layout from '../layout'
 
 import QuestionComponent from '../components/question'
+
 import MessageForm from '../components/messageForm'
 import { QuestionWithAnswers, User } from '../commons/models'
 import * as api from '../commons/api'

@@ -6,7 +6,7 @@ interface AnswerProps {
   answerText: string
 }
 
-const answer = (props: AnswerProps) => {
+const AnswerComponent = (props: AnswerProps) => {
   return (
     <div className="answer">
       <div className="answer_gutter">
@@ -26,4 +26,4 @@ const answer = (props: AnswerProps) => {
   )
 }
 
-export default answer
+export default AnswerComponent

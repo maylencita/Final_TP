@@ -65,13 +65,13 @@ class App extends React.Component<AppProps, AppState> {
   }
 
   // addChannel = (channelName: string) => {
-    // AppStore.addChannel(channelName)
-    // this.setState((prev, props) => ({
-    //   channels: [...prev.channels, channelName]
-    // }))
-    // AppStore.setState((prev: AppState, props) => ({
-    //   channels: [...prev.channels, channelName]
-    // }))
+  //   AppStore.addChannel(channelName)
+  //   this.setState((prev, props) => ({
+  //     channels: [...prev.channels, channelName]
+  //   }))
+  //   AppStore.setState((prev: AppState, props) => ({
+  //     channels: [...prev.channels, channelName]
+  //   }))
   // } 
 }
 

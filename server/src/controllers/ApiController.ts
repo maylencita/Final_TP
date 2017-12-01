@@ -54,8 +54,6 @@ export function addQuestion(request: Request, response: Response) {
 }
 
 export function sendAnswer(request: Request, response: Response) {
-  const channelId = request.params.channelId
-  const questionId = request.params.questionId
   if(Store.addAnswer(request.body)){
     response.send(Store.answers())
   } else {
@@ -65,7 +63,13 @@ export function sendAnswer(request: Request, response: Response) {
 }
 
 export function noteQuestion(request: Request, response: Response) {
-  response.send('TODO')  
+  const questionId = request.params.questionId
+  if(Store.noteQuestion(request.body, questionId)){
+    response.send(Store.questions())
+  } else {
+    response.status(400)
+    response.send({error: 'An error in noting a question occured'})
+  }  
 }
 
 export function noteAnswer(request: Request, response: Response) {
