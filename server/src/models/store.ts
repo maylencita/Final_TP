@@ -1,5 +1,6 @@
 import { ServerState, User, Channel, Question, Answer } from '../models'
 import generateQuestions from '../utils/questionGenerator'
+import * as uuid from 'uuid'
 
 const firstChannel = [
   {name: "General", owner: "Admin", participants_ids: ['Admin']}
@@ -58,10 +59,15 @@ class Store {
   }
 
   addQuestion(question: Question){
+    question.id = uuid.v4();
     this.state = {
       ...this.state,
       questions: [...this.state.questions, question]
     }
+    return true
+  }
+
+  addAnswer(answer: Answer){
     return true
   }
 

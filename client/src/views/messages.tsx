@@ -3,7 +3,7 @@ import Layout from '../layout'
 
 import QuestionComponent from '../components/question'
 import MessageForm from '../components/messageForm'
-import { QuestionWithAnswers } from '../commons/models'
+import { QuestionWithAnswers, User } from '../commons/models'
 import * as api from '../commons/api'
 import App from '../store'
 
@@ -11,7 +11,8 @@ interface MessagesProps {
   appName: string
   channelId: string
   channels: Array<string>
-  questionToAnswer?: string
+  questionToAnswer?: string,
+  user?: User
 }
 interface MessagesState {
   messages: Array<QuestionWithAnswers>

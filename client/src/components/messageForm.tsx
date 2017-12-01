@@ -2,6 +2,7 @@ import * as React from 'react'
 import InputText from '../components/inputText'
 import * as Ev from '../commons/eventModels'
 import * as api from '../commons/api'
+import { User } from '../commons/models'
 
 interface FormState { 
   message: string 
@@ -9,7 +10,8 @@ interface FormState {
 
 interface FormProps {
   channelId: string, 
-  questionToAnswer?: string
+  questionToAnswer?: string,
+  user?: User
 }
 
 class MessageForm extends React.Component<FormProps, FormState> {
@@ -39,7 +41,8 @@ class MessageForm extends React.Component<FormProps, FormState> {
   sendQuestion = (event: Ev.Submit) => {
     api.sendQuestion({
         destinataire: this.props.channelId,
-        emetteur: "Admin",
+        emetteur: 'Admin',
+        //!!this.props.user?this.props.user.pseudo:'pas de pseudo',
         content: this.state.message
       });
     this.setState({
@@ -47,8 +50,17 @@ class MessageForm extends React.Component<FormProps, FormState> {
     })
   }
 
-  sendAnswer() {
-    // TODO
+  sendAnswer= (event: Ev.Submit) => {
+    api.sendAnswer({
+        idQuestion: !!this.props.questionToAnswer ? this.props.questionToAnswer : 'tes nul',
+        emetteur: "Admin",
+        content: this.state.message,
+        destinataire: this.props.channelId
+      });
+    this.setState({
+      message:''
+    })
+    
   }
 }
 

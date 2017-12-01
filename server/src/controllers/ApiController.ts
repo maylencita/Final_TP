@@ -1,7 +1,6 @@
 import { Response, Request } from "express";
 import { User, Answer } from '../models'
 import Store from '../models/store'
-import * as uuid from 'uuid'
 
 export function getState(request: Request, response: Response){
   response.send(Store.toJSON())
@@ -55,7 +54,14 @@ export function addQuestion(request: Request, response: Response) {
 }
 
 export function sendAnswer(request: Request, response: Response) {
-  response.send('TODO')  
+  const channelId = request.params.channelId
+  const questionId = request.params.questionId
+  if(Store.addAnswer(request.body)){
+    response.send(Store.answers())
+  } else {
+    response.status(400)
+    response.send({error: 'An error in adding a response occured'})
+  }
 }
 
 export function noteQuestion(request: Request, response: Response) {

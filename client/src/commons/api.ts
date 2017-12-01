@@ -1,5 +1,5 @@
 import { fetchJson } from './protocol'
-import { Channel, User, Question } from './models'
+import { Channel, User, Question, Answer } from './models'
 
 const SERVER_URL = 'http://localhost:3001'
 
@@ -54,18 +54,19 @@ export function sendQuestion(question: QuestionPayload) {
 
 interface AnswerPayload {
   idQuestion: string,
-  emetter: string,
-  content: string
+  emetteur: string,
+  content: string,
+  destinataire: string
 }
 
 export function sendAnswer(answer: AnswerPayload) {
-  // const url = `${SERVER_URL}/channels/${question.}/questions/:questionId`
-  // const method = 'PUT'
-  // return fetchJson<Array<Question>>(url, {
-  //   method: method,
-  //   body: question
-  // }).catch(error => {
-  //   console.error('Impossible to get questions: ', error)
-  // })
-  // TODO
+  const url = `${SERVER_URL}/channels/${answer.destinataire}/questions/${answer.idQuestion}`
+  const method = 'PUT'
+  return fetchJson<Array<Answer>>(url, {
+    method: method,
+    body: answer
+  }).catch(error => {
+    console.error('Impossible to get questions: ', error)
+  })
+  
 }
