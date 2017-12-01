@@ -17,7 +17,6 @@ interface QuestionState {
 
 // TODO 
 // - afficher le bon userIcon
-// - modifier l'action d'ajouter un point pour envoyer l'information au serveur
 
 class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
   state = {

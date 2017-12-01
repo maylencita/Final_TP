@@ -1,3 +1,3 @@
-Generate ID cote back avec uuid.v4()
-generer questions
-Passer l'utilisateur dans les props
+Ajouter les réponses,
+récupérer les points pour les questions et réponses pour éviter de démarrer à 0
+Et passer l'id de la question mere dans les reponses

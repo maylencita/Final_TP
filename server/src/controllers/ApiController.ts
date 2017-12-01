@@ -73,5 +73,11 @@ export function noteQuestion(request: Request, response: Response) {
 }
 
 export function noteAnswer(request: Request, response: Response) {
-  response.send('TODO')  
+  const answerId = request.params.answerId
+  if(Store.noteAnswer(request.body, answerId)){
+    response.send(Store.answers())
+  } else {
+    response.status(400)
+    response.send({error: 'An error in noting an answer occured'})
+  }  
 }

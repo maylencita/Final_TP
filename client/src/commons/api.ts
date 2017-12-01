@@ -80,3 +80,14 @@ export function sendPointsQuestion(note: number, channelId: string, questionId: 
     console.error('Impossible to send points: ', error)
   })  
 }
+
+export function sendPointsAnswer(note: number, answerId: string) {
+  const url = `${SERVER_URL}/channels/random/questions/${answerId}/note`
+  const method = `POST`
+  return fetchJson<Array<Question>>(url, {
+    method: method,
+    body: {note}
+  }).catch(error => {
+    console.error('Impossible to send points: ', error)
+  }) 
+}

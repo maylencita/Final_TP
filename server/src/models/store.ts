@@ -92,6 +92,22 @@ class Store {
     return true
   }
 
+  noteAnswer(note: {note: number}, answerId: string ){
+    const answers = this.state.answers;
+    if (Math.abs(note.note) < 6) {
+      for (let a of answers) {
+        if (a.id == answerId) {
+          a.note = note.note;
+        }
+      }
+      this.state = {
+        ...this.state,
+        answers: answers
+      }
+    }
+    return true
+  }
+
   users(){
     return this.state.users
   }
