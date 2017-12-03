@@ -3,6 +3,9 @@ export interface AppState {
   serverStatus: string
   user?: User
   questionToAnswer?: string
+  // ajout de liste de questions
+  questions: Array<Question>
+  
 }
 
 export interface AppProps {

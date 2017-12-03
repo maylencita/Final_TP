@@ -1,6 +1,7 @@
 import { AppState, AppProps } from './commons/models'
 import { ping } from './commons/api'
-import { Channel, User } from './commons/models'
+import { Channel, User, Question } from './commons/models'
+
 
 type StateReducer<K extends keyof AppState> = (prevState: AppState, props: AppProps) => Pick<AppState, K>
 
@@ -23,12 +24,11 @@ class Store {
     }))    
   }
 
-  /*addQuestion(question: Question){
-    this.state ={
-
-    }
+  addQuestion(question: Question){
+    this._setState((prev: AppState) => ({
+      questions: [...prev.questions, question]
+    })) 
   }
-*/
 
   updateChannels = (newChannels: Array<Channel>) => {
     this._setState(() => ({
