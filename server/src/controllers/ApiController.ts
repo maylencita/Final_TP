@@ -35,18 +35,33 @@ export function addChannel(request: Request, response: Response) {
 
 export function readChannel(request: Request, response: Response) {
   const channelId = request.params.channelId
-  if(!!channelId){
-    const questionsWithAnswers = 'TODO'
+  if(!!channelId){ //deux points pour dire que c'est non vide et diffrent de undefined
+    const questions = Store.questions().filter(msg => msg.destinataire ===channelId)
+
+    const questionsWithAnswers = questions.map(
+      q => ({
+        question: q,
+        answers: Store.answers().filter(msg => msg.question_id === q.id)
+      })
+    )
     response.send(questionsWithAnswers)
   } else response.send([])
 }
 
 export function addQuestion(request: Request, response: Response) {
-  response.send('TODO')
+  const channelId = request.params.questionId
+  if(!! channelId && Store.channels().findIndex(chan => chan.name === channelId)>0){
+    Store.addQuestion(
+      request.body
+    )
+  }else{
+    response.send([])
+  }
 }
 
 export function sendAnswer(request: Request, response: Response) {
-  response.send('TODO')  
+  response.send('TODO') 
+
 }
 
 export function noteQuestion(request: Request, response: Response) {

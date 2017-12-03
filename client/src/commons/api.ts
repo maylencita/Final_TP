@@ -3,6 +3,7 @@ import { Channel, User, Question } from './models'
 
 const SERVER_URL = 'http://localhost:3001'
 
+//pour tester qu'on arrive bien a se connecter au serveur
 export function ping() {
   return fetchJson<{ping: string}>(`${SERVER_URL}/ping`)
     .catch(error => {
@@ -11,6 +12,7 @@ export function ping() {
     })
 }
 
+//envoie de l'information pour creer un nouveau channel
 export function newChannel(channel: Channel) {
   return fetchJson<Array<Channel>>(`${SERVER_URL}/channels`, {
     method: 'PUT',
@@ -45,4 +47,12 @@ export function sendQuestion(question: QuestionPayload) {
   // const url = `${SERVER_URL}/channels/${question.destinataire}/questions`
   // const method = 'PUT'
   return 'TODO'
+}
+
+interface AnswerPayLoad{
+
+}
+
+export function sendAnswer(){
+  
 }

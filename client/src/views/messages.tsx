@@ -4,7 +4,8 @@ import Layout from '../layout'
 import QuestionComponent from '../components/question'
 import MessageForm from '../components/messageForm'
 import { QuestionWithAnswers } from '../commons/models'
-// import * as api from '../commons/api'
+//import * as Api from '../../server/src/controllers/ApiController'
+import * as api from '../commons/api'
 
 interface MessagesProps {
   appName: string
@@ -23,7 +24,14 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
   }
 
   componentWillMount() {
-    // TODO use api.getMessages(this.props.channelId)
+    api.getMessages(this.props.channelId)
+    .then(messages =>{
+    this.setState(()=>({
+      messages
+    } ))
+    }).catch(error => {
+      console.error('Opps ',error)
+    })
   }
 
   render() {

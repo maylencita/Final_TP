@@ -38,6 +38,7 @@ export function fetchJson<T>(url: string, options?: RequestOptions) {
   }
 
   // tslint:disable:no-any
+  // appel au web service
   return fetch(encodeURI(url), newOptions)
     .then(filterStatus)
     .then((value: any) => value as T)

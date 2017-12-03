@@ -31,7 +31,9 @@ class MessageForm extends React.Component<FormProps, FormState> {
   }
 
   onTextChange(value: string) {
-    // TODO
+    this.setState({
+      message: value
+    })
   }
 
   sendQuestion = (event: Ev.Submit) => {

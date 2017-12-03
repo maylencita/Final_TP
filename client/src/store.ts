@@ -23,6 +23,13 @@ class Store {
     }))    
   }
 
+  /*addQuestion(question: Question){
+    this.state ={
+
+    }
+  }
+*/
+
   updateChannels = (newChannels: Array<Channel>) => {
     this._setState(() => ({
       channels: newChannels.map(c => c.name)
