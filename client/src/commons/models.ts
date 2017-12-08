@@ -11,7 +11,7 @@ export interface AppProps {
 
 export interface User {
   pseudo: string
-  avatar?: string
+  avatar: string
   points: number
   status: 'Connected' | 'Offline' | 'Suspended'
 }
@@ -26,6 +26,7 @@ export interface Question {
   emetteur: UserId
   content: string
   note: number
+  avatar: string
 }
 
 export interface QuestionWithAnswers {

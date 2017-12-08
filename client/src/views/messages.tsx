@@ -25,6 +25,7 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
     messages: []
   }
 
+
   componentWillMount() {
     api.getMessages(this.props.channelId)
     .then(messages => {
@@ -46,7 +47,7 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
           {renderQuestions(this.state.messages)}
         </div>
         <div className="messagesContainer_footer">
-          <MessageForm channelId={this.props.channelId} questionToAnswer={this.props.questionToAnswer} />
+          <MessageForm channelId={this.props.channelId} questionToAnswer={this.props.questionToAnswer} user={this.props.user}/>
           <div className="messagesContainer_notifBar" />
         </div>
       </Layout>
@@ -60,7 +61,7 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
 
 function renderQuestions(questions: Array<QuestionWithAnswers>) {
   return questions.map(q => (
-    <QuestionComponent question={q.question} answers={q.answers} key={q.question.id}/>
+    <QuestionComponent question={q.question} answers={q.answers} pseudo = {q.question.emetteur} icon={q.question.avatar} key={q.question.id}/>
   ))
 }
 

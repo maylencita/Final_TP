@@ -13,6 +13,7 @@ export type QuestionId = string
 
 export interface Question {
   id: string
+  avatar: string
   destinataire: ChannelId
   emetteur: UserId
   note: number

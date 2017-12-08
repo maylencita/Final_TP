@@ -41,8 +41,7 @@ class MessageForm extends React.Component<FormProps, FormState> {
   sendQuestion = (event: Ev.Submit) => {
     api.sendQuestion({
         destinataire: this.props.channelId,
-        emetteur: 'Admin',
-        // !!this.props.user?this.props.user.pseudo:'pas de pseudo',
+        emetteur: (!!this.props.user?this.props.user.pseudo:"Admin"),
         content: this.state.message
       });
     this.setState({
@@ -53,7 +52,7 @@ class MessageForm extends React.Component<FormProps, FormState> {
   sendAnswer = (event: Ev.Submit) => {
     api.sendAnswer({
         question_id: !!this.props.questionToAnswer ? this.props.questionToAnswer : 'null',
-        emetteur: 'Admin',
+        emetteur: (!!this.props.user?this.props.user.pseudo:"Admin"),
         content: this.state.message,
         destinataire: this.props.channelId
       });

@@ -60,6 +60,7 @@ class Store {
 
   addQuestion(question: Question){
     question.id = uuid.v4();
+    question.avatar = (this.state.users[this.state.users.findIndex(user => user.pseudo === question.emetteur)]).avatar;
     this.state = {
       ...this.state,
       questions: [...this.state.questions, question]

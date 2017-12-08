@@ -9,14 +9,13 @@ import * as api from '../commons/api'
 interface QuestionProps {
   question: Question
   answers: Array<Answer>
+  pseudo: string
+  icon: string
 }
 
 interface QuestionState {
   points: number
 }
-
-// TODO 
-// - afficher le bon userIcon
 
 class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
   state = {
@@ -24,14 +23,14 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
   }
 
   render() {
-    const { question, answers } = this.props
+    const { question, answers, pseudo, icon } = this.props
     return (
       <div className="message">
         <div className="message_gutter">
-          <UserIcon userIcon={'ToD'} />
+          <UserIcon userIcon={icon} />
         </div>
         <div className="message_content">
-          <UserName userNickname={question.emetteur} />
+          <UserName userNickname={pseudo} />
           <div className="message_content_body">
             <div className="message_content_question"> 
               <div className="question_text">
@@ -40,7 +39,7 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
             </div>
             <div className="message_content_answers">
               {answers.map(answer => {
-                return <AnswerComponent userNickName={answer.emetteur} userIcon="^_^'" answerText={answer.content} id={answer.id} key={answer.id}/>
+                return <AnswerComponent userNickName={answer.emetteur} userIcon={"^_^'"} answerText={answer.content} id={answer.id} key={answer.id}/>
               })}
             </div>
           </div>
