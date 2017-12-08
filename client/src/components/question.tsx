@@ -39,7 +39,7 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
             </div>
             <div className="message_content_answers">
               {answers.map(answer => {
-                return <AnswerComponent userNickName={answer.emetteur} userIcon={"^_^'"} answerText={answer.content} id={answer.id} key={answer.id}/>
+                return <AnswerComponent userNickName={answer.emetteur} userIcon={answer.avatar} answerText={answer.content} id={answer.id} key={answer.id}/>
               })}
             </div>
           </div>

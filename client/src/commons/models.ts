@@ -39,6 +39,7 @@ export interface Answer {
   question_id: string
   emetteur: UserId
   content: string
+  avatar: string
 }
 
 export interface Note { 

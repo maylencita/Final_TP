@@ -61,6 +61,7 @@ class Store {
   addQuestion(question: Question){
     question.id = uuid.v4();
     question.avatar = (this.state.users[this.state.users.findIndex(user => user.pseudo === question.emetteur)]).avatar;
+    question.note = 0;
     this.state = {
       ...this.state,
       questions: [...this.state.questions, question]
@@ -70,6 +71,8 @@ class Store {
 
   addAnswer(answer: Answer){
     answer.id = uuid.v4();
+    answer.avatar = (this.state.users[this.state.users.findIndex(user => user.pseudo === answer.emetteur)]).avatar
+    answer.note = 0;
     this.state = {
       ...this.state,
       answers: [...this.state.answers, answer]
