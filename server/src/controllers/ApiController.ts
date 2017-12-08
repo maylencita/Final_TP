@@ -35,11 +35,11 @@ export function addChannel(request: Request, response: Response) {
 export function readChannel(request: Request, response: Response) {
   const channelId = request.params.channelId
   if(!!channelId){
-    const questions = Store.questions().filter(msg => msg.destinataire === channelId)
+    const questions = Store.questions().filter(msg => msg.destinataire === channelId);
     const questionsWithAnswers = questions.map(q => ({
       question: q,
       answers: Store.answers().filter(msg => msg.question_id === q.id)
-    }))
+    }));
     response.send(questionsWithAnswers)
   } else response.send([])
 }
@@ -74,6 +74,7 @@ export function noteQuestion(request: Request, response: Response) {
 
 export function noteAnswer(request: Request, response: Response) {
   const answerId = request.params.answerId
+  console.log(answerId)
   if(Store.noteAnswer(request.body, answerId)){
     response.send(Store.answers())
   } else {

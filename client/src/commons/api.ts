@@ -53,14 +53,14 @@ export function sendQuestion(question: QuestionPayload) {
 }
 
 interface AnswerPayload {
-  idQuestion: string,
+  question_id: string,
   emetteur: string,
   content: string,
   destinataire: string
 }
 
 export function sendAnswer(answer: AnswerPayload) {
-  const url = `${SERVER_URL}/channels/${answer.destinataire}/questions/${answer.idQuestion}`
+  const url = `${SERVER_URL}/channels/${answer.destinataire}/questions/${answer.question_id}`
   const method = 'PUT'
   return fetchJson<Array<Answer>>(url, {
     method: method,
@@ -82,8 +82,10 @@ export function sendPointsQuestion(note: number, channelId: string, questionId: 
 }
 
 export function sendPointsAnswer(note: number, answerId: string) {
-  const url = `${SERVER_URL}/channels/random/questions/${answerId}/note`
+  const url = `${SERVER_URL}/channels/random/answers/${answerId}/note`
   const method = `POST`
+  console.log(note)
+  console.log(answerId)
   return fetchJson<Array<Question>>(url, {
     method: method,
     body: {note}

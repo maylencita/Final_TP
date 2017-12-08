@@ -4,7 +4,8 @@ import * as api from '../commons/api'
 interface AnswerProps {
   userIcon: string,
   userNickName: string,
-  answerText: string
+  answerText: string,
+  id: string
 }
 
 interface AnswerState {
@@ -46,8 +47,7 @@ class AnswerComponent extends React.Component<AnswerProps, AnswerState> {
     })
     api.sendPointsAnswer(
         this.state.points + 1,
-        // this.props.id
-        'I dunno'
+        this.props.id
         );
   }
 }

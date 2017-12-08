@@ -32,7 +32,7 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
         messages: messages
       }))
     }).catch(error => {
-      console.log("Ahah tu es nul (view messages)", error)
+      console.log('Error while displaying views', error)
     })
   }
 
@@ -60,7 +60,7 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
 
 function renderQuestions(questions: Array<QuestionWithAnswers>) {
   return questions.map(q => (
-    <QuestionComponent question={q.question} answers={q.answers} key={q.question.id} />
+    <QuestionComponent question={q.question} answers={q.answers} key={q.question.id}/>
   ))
 }
 

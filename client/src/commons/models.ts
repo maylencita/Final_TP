@@ -25,6 +25,7 @@ export interface Question {
   destinataire: ChannelId 
   emetteur: UserId
   content: string
+  note: number
 }
 
 export interface QuestionWithAnswers {

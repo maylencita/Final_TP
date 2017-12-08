@@ -23,6 +23,9 @@ class Store {
     }))    
   }
 
+  addPoints = (points: number) => {
+  }
+
   updateChannels = (newChannels: Array<Channel>) => {
     this._setState(() => ({
       channels: newChannels.map(c => c.name)
@@ -52,7 +55,7 @@ class Store {
     }) 
   }
 
-  disableAnswerMode(){
+  disableAnswerMode() {
     this._setState(() => ({
       questionToAnswer: null
     }))

@@ -25,7 +25,6 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
 
   render() {
     const { question, answers } = this.props
-
     return (
       <div className="message">
         <div className="message_gutter">
@@ -41,13 +40,13 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
             </div>
             <div className="message_content_answers">
               {answers.map(answer => {
-                return <AnswerComponent userNickName={answer.emetteur} userIcon="^_^'" answerText={answer.content} key={answer.id} />
+                return <AnswerComponent userNickName={answer.emetteur} userIcon="^_^'" answerText={answer.content} id={answer.id} key={answer.id}/>
               })}
             </div>
           </div>
         </div>    
         <div className="message_buttons">
-          <span className="message_buttons_points">{this.state.points}</span>
+          <span className="message_buttons_points">{question.note}</span>
           <button className="message_buttons_addPoints" onClick={this.addPoints}>+1</button>
           <button className="question_buttons_answer" onClick={this.answerQuestion}>A</button>
         </div>

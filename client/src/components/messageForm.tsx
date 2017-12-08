@@ -42,24 +42,25 @@ class MessageForm extends React.Component<FormProps, FormState> {
     api.sendQuestion({
         destinataire: this.props.channelId,
         emetteur: 'Admin',
-        //!!this.props.user?this.props.user.pseudo:'pas de pseudo',
+        // !!this.props.user?this.props.user.pseudo:'pas de pseudo',
         content: this.state.message
       });
     this.setState({
-      message:''
+      message: ''
     })
   }
 
-  sendAnswer= (event: Ev.Submit) => {
+  sendAnswer = (event: Ev.Submit) => {
     api.sendAnswer({
-        idQuestion: !!this.props.questionToAnswer ? this.props.questionToAnswer : 'tes nul',
-        emetteur: "Admin",
+        question_id: !!this.props.questionToAnswer ? this.props.questionToAnswer : 'null',
+        emetteur: 'Admin',
         content: this.state.message,
         destinataire: this.props.channelId
       });
     this.setState({
-      message:''
+      message: ''
     })
+    event.preventDefault();
   }
 }
 
