@@ -12,6 +12,8 @@ router.post('/login', Api.registerUser)
 
 router.get('/users', Api.getUsers)
 
+router.get('/questions', Api.getQuestions)
+
 router.get('/channels', Api.getChannels)
 
 router.put('/channels', Api.addChannel)

@@ -23,6 +23,10 @@ export function getChannels(request: Request, response: Response) {
   response.send(Store.channels())
 }
 
+export function getQuestions(request: Request, response: Response) {
+  response.send(Store.questions())
+}
+
 export function addChannel(request: Request, response: Response) {
   if (Store.addChannel(request.body)) {
     response.send(Store.channels())

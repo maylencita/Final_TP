@@ -93,3 +93,7 @@ export function sendPointsAnswer(note: number, answerId: string) {
     console.error('Impossible to send points: ', error)
   }) 
 }
+
+export function getQuestions() {
+  return fetchJson<Array<User>>(`${SERVER_URL}/questions}`)
+}

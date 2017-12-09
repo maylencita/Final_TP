@@ -1,11 +1,13 @@
 import * as React from 'react'
 import * as api from '../commons/api'
+import { Answer } from '../commons/models'
 
 interface AnswerProps {
   userIcon: string,
   userNickName: string,
   answerText: string,
-  id: string
+  id: string,
+  answer: Answer
 }
 
 interface AnswerState {
@@ -13,8 +15,12 @@ interface AnswerState {
 }
 
 class AnswerComponent extends React.Component<AnswerProps, AnswerState> {
-  state = {
-    points: 0
+   constructor(props: any) {
+    super(props);
+
+    this.state = {
+      points: props.answer.note
+    };
   }
 
   render() {
@@ -41,10 +47,12 @@ class AnswerComponent extends React.Component<AnswerProps, AnswerState> {
   }  
 
   addPoints = () => {
+    if(this.state.points < 5) {
     this.setState({
       ...this.state,
       points: this.state.points + 1
     })
+  }
     api.sendPointsAnswer(
         this.state.points + 1,
         this.props.id
