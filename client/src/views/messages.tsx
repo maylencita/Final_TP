@@ -37,6 +37,17 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
     })
   }
 
+  componentWillReceiveProps(nextProps: any) {
+    api.getMessages(nextProps.channelId)
+    .then(messages => {
+      this.setState(() => ({
+        messages: messages
+      }))
+    }).catch(error => {
+      console.log('Error while displaying views', error)
+    })
+}
+
   render() {
     return (
       <Layout {...this.props}>
