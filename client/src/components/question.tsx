@@ -14,7 +14,8 @@ interface QuestionProps {
 }
 
 interface QuestionState {
-  points: number
+  points: number,
+  answers: Answer[]
 }
 
 class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
@@ -22,13 +23,26 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
     super(props);
 
     this.state = {
-      points: props.question.note
+      points: props.question.note,
+      answers: props.answers
     };
   }
 
+  componentWillMount() {
+    api.getAnswers()
+    .then(answers => {
+      const realAnswers = answers.filter(a => a.question_id === this.props.question.id);
+      this.setState(() => ({
+        ...this.state,
+        answers: realAnswers
+      }))
+    }).catch(error => {
+      console.log('Error while displaying views', error)
+    })
+  }
+
   render() {
-    const { question, answers, pseudo, icon } = this.props
-    console.log(this.state.points);
+    const { question, pseudo, icon } = this.props
     return (
       <div className="message">
         <div className="message_gutter">
@@ -43,7 +57,7 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
               </div>
             </div>
             <div className="message_content_answers">
-              {answers.map(answer => {
+              {this.state.answers.map(answer => {
                 return <AnswerComponent userNickName={answer.emetteur} userIcon={answer.avatar} answerText={answer.content} id={answer.id} answer={answer} key={answer.id}/>
               })}
             </div>
@@ -61,20 +75,16 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
   addPoints = () => {
     if(this.state.points < 5)
     {
+      this.setState({
+        ...this.state,
+        points: this.state.points + 1
+      })
       
-    this.setState({
-      ...this.state,
-      points: this.state.points + 1
-    });
+      api.sendPointsQuestion(
+          this.state.points + 1,
+          this.props.question.destinataire,
+          this.props.question.id);
     }
-    api.sendPointsQuestion(
-        this.state.points + 1,
-        this.props.question.destinataire,
-        this.props.question.id);
-  }
-
-  renderPoints = (questions: Question[], id: string) => {
-    return (questions[questions.findIndex(q => q.id === id)]).note;
   }
 
   answerQuestion = () => {

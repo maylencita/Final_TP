@@ -98,8 +98,6 @@ class Store {
 
   noteAnswer(note: {note: number}, answerId: string ){
     const answers = this.state.answers;
-    console.log(answers)
-    console.log(answerId)
     if (Math.abs(note.note) < 6) {
       for (let a of answers) {
         if (a.id == answerId) {

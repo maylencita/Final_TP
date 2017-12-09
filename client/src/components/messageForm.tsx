@@ -59,7 +59,6 @@ class MessageForm extends React.Component<FormProps, FormState> {
     this.setState({
       message: ''
     })
-    event.preventDefault();
   }
 }
 

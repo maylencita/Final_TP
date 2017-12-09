@@ -84,8 +84,6 @@ export function sendPointsQuestion(note: number, channelId: string, questionId: 
 export function sendPointsAnswer(note: number, answerId: string) {
   const url = `${SERVER_URL}/channels/random/answers/${answerId}/note`
   const method = `POST`
-  console.log(note)
-  console.log(answerId)
   return fetchJson<Array<Question>>(url, {
     method: method,
     body: {note}
@@ -95,5 +93,9 @@ export function sendPointsAnswer(note: number, answerId: string) {
 }
 
 export function getQuestions() {
-  return fetchJson<Array<User>>(`${SERVER_URL}/questions}`)
+  return fetchJson<Array<Question>>(`${SERVER_URL}/questions`)
+}
+
+export function getAnswers() {
+  return fetchJson<Array<Answer>>(`${SERVER_URL}/answers`)
 }

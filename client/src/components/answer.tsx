@@ -48,15 +48,15 @@ class AnswerComponent extends React.Component<AnswerProps, AnswerState> {
 
   addPoints = () => {
     if(this.state.points < 5) {
-    this.setState({
-      ...this.state,
-      points: this.state.points + 1
-    })
-  }
-    api.sendPointsAnswer(
-        this.state.points + 1,
-        this.props.id
-        );
+      this.setState({
+        ...this.state,
+        points: this.state.points + 1
+      })
+      api.sendPointsAnswer(
+          this.state.points + 1,
+          this.props.id
+          )
+    }
   }
 }
 

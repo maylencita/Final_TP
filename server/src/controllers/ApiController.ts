@@ -27,6 +27,10 @@ export function getQuestions(request: Request, response: Response) {
   response.send(Store.questions())
 }
 
+export function getAnswers(request: Request, response: Response) {
+  response.send(Store.answers())
+}
+
 export function addChannel(request: Request, response: Response) {
   if (Store.addChannel(request.body)) {
     response.send(Store.channels())
@@ -78,7 +82,6 @@ export function noteQuestion(request: Request, response: Response) {
 
 export function noteAnswer(request: Request, response: Response) {
   const answerId = request.params.answerId
-  console.log(answerId)
   if(Store.noteAnswer(request.body, answerId)){
     response.send(Store.answers())
   } else {
