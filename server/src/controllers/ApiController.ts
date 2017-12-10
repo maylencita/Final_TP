@@ -24,6 +24,14 @@ export function getChannels(request: Request, response: Response) {
   response.send(Store.channels())
 }
 
+export function getQuestions(request:Request, response: Response){
+  response.send(Store.questions());
+}
+
+export function getAnswers(request:Request, response: Response){
+  response.send(Store.answers());
+}
+
 export function addChannel(request: Request, response: Response) {
   if (Store.addChannel(request.body)) {
     response.send(Store.channels())
@@ -49,7 +57,7 @@ export function readChannel(request: Request, response: Response) {
 }
 
 export function addQuestion(request: Request, response: Response) {
-  const channelId = request.params.questionId
+  /*const channelId = request.params.questionId
   if(!! channelId && Store.channels().findIndex(chan => chan.name === channelId)>0){
     Store.addQuestion(
       request.body
@@ -57,10 +65,23 @@ export function addQuestion(request: Request, response: Response) {
   }else{
     response.send([])
   }
+  */
+ if (Store.addQuestion(request.body)) {
+    response.send(Store.questions())
+  } else {
+    response.status(400)
+    response.send({error: 'An error in adding a question occured'})
+}
+  
 }
 
 export function sendAnswer(request: Request, response: Response) {
-  response.send('TODO') 
+  if(Store.addAnswer(request.body)){
+    response.send(Store.answers())
+  } else {
+    response.status(400)
+    response.send({error: 'An error in adding a response occured'})
+}
 
 }
 

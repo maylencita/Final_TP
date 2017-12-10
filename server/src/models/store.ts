@@ -58,8 +58,18 @@ class Store {
   }
 
   addQuestion(question: Question){
-    // TODO
+    this.state = {
+      ...this.state,
+      questions: [...this.state.questions, question]
+    }
+return true
   }
+
+
+  addAnswer(answer: Answer){
+
+  }
+
 
   users(){
     return this.state.users

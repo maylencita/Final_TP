@@ -13,6 +13,7 @@ const input = (props: InputProps) => {
       <input 
         type="text" 
         placeholder={props.placeholder} 
+        // tslint:disable-next-line:jsx-no-lambda
         onChange={(event) => props.onChange && props.onChange(event.target.value)}
         value={props.value}
       />
