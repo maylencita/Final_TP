@@ -4,7 +4,7 @@ export interface AppState {
   user?: User
   questionToAnswer?: string
   // ajout de liste de questions
-  questions: Array<Question>
+  //questions: Array<Question>
   
 }
 
