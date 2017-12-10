@@ -1,15 +1,16 @@
 import { ServerState, User, Channel, Question, Answer } from '../models'
 import generateQuestions from '../utils/questionGenerator'
+import * as uuid from 'uuid'
 
 const firstChannel = [
-  {name: "General", owner: "Admin", participants_ids: ['Admin']}
+  {name: "General", owner: "Administrateur", participants_ids: ['Administrateur']}
 ]
 
 class Store {
   private admin: User = {
-    pseudo: 'Admin',
+    pseudo: 'Administrateur',
     points: 5,
-    avatar: '--',
+    avatar: ':)',
     status: 'Connected'
   }
 
@@ -58,9 +59,55 @@ class Store {
   }
 
   addQuestion(question: Question){
+    question.id = uuid.v4()
+    question.avatar = (this.state.users[this.state.users.findIndex(user => user.pseudo === question.emetteur)]).avatar;
+    question.note = 0
     this.state = {
       ...this.state,
       questions: [...this.state.questions, question]
+    }
+    return true
+  }
+
+  addAnswer(answer: Answer){
+    answer.id = uuid.v4()
+    answer.avatar = (this.state.users[this.state.users.findIndex(user => user.pseudo === answer.emetteur)]).avatar;
+    answer.note = 0
+    this.state = {
+      ...this.state,
+      answers: [...this.state.answers, answer]
+    }
+    return true
+  }
+
+  noteQuestion(note: {note: number}, questionId: string ){
+    const questions = this.state.questions;
+    if (Math.abs(note.note) < 6) {
+      for (let q of questions) {
+        if (q.id == questionId) {
+          q.note = note.note;
+        }
+      }
+      this.state = {
+        ...this.state,
+        questions: questions
+      }
+    }
+    return true
+  }
+
+  noteAnswer(note: {note: number}, answerId: string ){
+    const answers = this.state.answers;
+    if (Math.abs(note.note) < 6) {
+      for (let a of answers) {
+        if (a.id == answerId) {
+          a.note = note.note;
+        }
+      }
+      this.state = {
+        ...this.state,
+        answers: answers
+      }
     }
     return true
   }

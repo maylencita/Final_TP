@@ -7,9 +7,10 @@ const generateQuestions = (channelId: string, total: number) => {
     return {
       id: uuid.v4(),
       destinataire: channelId,
-      emetteur: 'Admin',
+      emetteur: 'Administrateur',
       content: text,
-      note: 0
+      note: 0,
+      avatar: '>:@'
     }
   })
 }

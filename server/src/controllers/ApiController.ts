@@ -35,7 +35,7 @@ export function addChannel(request: Request, response: Response) {
 
 export function readChannel(request: Request, response: Response) {
   const channelId = request.params.channelId
-  if(!!channelId){
+  if (!!channelId) {
     const questions = Store.questions().filter(msg => msg.destinataire === channelId)
     const questionsWithAnswers = questions.map(q => ({
       question: q,
@@ -46,27 +46,45 @@ export function readChannel(request: Request, response: Response) {
 }
 
 export function addQuestion(request: Request, response: Response) {
-  const channelId = request.params.questionId
-  if (!!channelId && Store.questions().findIndex(chan => chan.id === channelId) > 0) {
-    Store.addQuestion(
-      request.body
-    )
+  if (Store.addQuestion(request.body)) {
+    response.send(Store.questions())
+  } else {
+    response.status(400)
+    response.send({error: 'Erreur pour ajouter une question'})
   }
-  else {
-    response.send([])
-  }
-  
 }
 
 export function sendAnswer(request: Request, response: Response) {
-  //verifier que la question existe
-  response.send('TODO')  
+  if (Store.addAnswer(request.body)) {
+    response.send(Store.answers())
+  } else {
+    response.status(400)
+    response.send({error: 'Erreur pour ajouter une reponse'})
+  }
 }
 
 export function noteQuestion(request: Request, response: Response) {
-  response.send('TODO')  
+  if (Store.noteQuestion(request.body, request.params.questionId)){
+    response.send(Store.questions())
+  } else {
+    response.status(400)
+    response.send({error: 'Erreur pour noter une question'})
+  }
 }
 
 export function noteAnswer(request: Request, response: Response) {
-  response.send('TODO')  
+  if (Store.noteAnswer(request.body, request.params.answerId)){
+    response.send(Store.answers())
+  } else {
+    response.status(400)
+    response.send({error: 'Erreur pour noter une reponse'})
+  }
+}
+
+export function getQuestions(request: Request, response: Response) {
+  response.send(Store.questions())
+}
+
+export function getAnswers(request: Request, response: Response) {
+  response.send(Store.answers())
 }

@@ -1,5 +1,5 @@
 import { fetchJson } from './protocol'
-import { Channel, User, Question } from './models'
+import { Channel, User, Question, Answer } from './models'
 
 const SERVER_URL = 'http://localhost:3001'
 
@@ -48,24 +48,54 @@ export function sendQuestion(question: QuestionPayload) {
     method: method,
     body: question
   }).catch(error => {
-    console.error('Impossible de avoir des questions', error)
+    console.error('Impossible de lire les questions ', error)
   })
 }
 
 interface AnswerPayLoad {
-  idQuestion: string,
+  question_id: string,
   emetteur: string,
-  contenu: string
+  contenu: string,
+  destinataire: string
 }
 
 export function sendAnswer(answer: AnswerPayLoad) {
   const url = `${SERVER_URL}/channels/${answer.destinataire}/questions`
   const method = 'PUT'
-  // question passee en props ?
   return fetchJson<Array<Question>>(url, {
     method: method,
     body: answer
   }).catch(error => {
-    console.error('Impossible de avoir des reponses', error)
+    console.error('Impossible de lire les reponses ', error)
   })
+}
+
+export function sendNoteQuestion(note: number, channelId: string, questionId: string ) {
+  const url = `${SERVER_URL}/channels/${channelId}/questions/${questionId}/note`
+  const method = `POST`
+  return fetchJson<Array<Question>>(url, {
+    method: method,
+    body: {note}
+  }).catch(error => {
+    console.error('Impossible de noter la question ', error)
+  })
+}
+
+export function sendNoteAnswer(note: number, answerId: string) {
+  const url = `${SERVER_URL}/channels/random/answers/${answerId}/note`
+  const method = `POST`
+  return fetchJson<Array<Question>>(url, {
+    method: method,
+    body: {note}
+  }).catch(error => {
+    console.error('Impossible de noter la reponse ', error)
+  })
+}
+  
+export function getQuestions() {
+  return fetchJson<Array<Question>>(`${SERVER_URL}/questions`)
+}
+
+export function getAnswers() {
+  return fetchJson<Array<Answer>>(`${SERVER_URL}/answers`)
 }

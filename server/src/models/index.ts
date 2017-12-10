@@ -17,6 +17,7 @@ export interface Question {
   emetteur: UserId
   note: number
   content: string
+  avatar: string
 }
 
 export interface Answer { 
@@ -25,6 +26,7 @@ export interface Answer {
   emetteur: UserId
   note: number
   content: string
+  avatar: string
 }
 
 export interface Channel {

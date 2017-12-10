@@ -27,11 +27,18 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
   componentWillMount() {
     api.getMessages(this.props.channelId)
     .then(messages => {
-      this.setState((prev: MessagesState, props: MessagesProps) => ({
-        messages
-      }))
+      this.setState(() => ({messages: messages}))
     }).catch(error => {
-      console.error('Opps ', error)
+      console.error('Oops [componentWillMount] ', error)
+    })
+  }
+
+  componentWillReceiveProps(nextProps: any) {
+    api.getMessages(nextProps.channelId)
+    .then(messages => {
+      this.setState(() => ({messages: messages}))
+    }).catch(error => {
+      console.log('Oops [componentWillReceiveProps] ', error)
     })
   }
 
@@ -59,7 +66,7 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
 
 function renderQuestions(questions: Array<QuestionWithAnswers>) {
   return questions.map(q => (
-    <QuestionComponent question={q.question} answers={q.answers} key={q.question.id} />
+    <QuestionComponent question={q.question} answers={q.answers} key={q.question.id} pseudo={q.question.emetteur} avatar={q.question.avatar}/>
   ))
 }
 
