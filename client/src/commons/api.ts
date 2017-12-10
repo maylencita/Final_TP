@@ -64,7 +64,7 @@ interface AnswerPayLoad {
 }
 
 // tslint:disable-next-line:no-empty
-export function sendAnswer() {
+export function sendAnswer(answer: AnswerPayLoad) {
   const url = `${SERVER_URL}/channels/${answer.destinataire}/questions/${answer.question_id}`
   const method = 'PUT'
   return fetchJson<Array<Answer>>(url, {

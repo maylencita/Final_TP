@@ -37,6 +37,8 @@ class App extends React.Component<AppProps, AppState> {
     // TODO
   }
 
+
+  /*
   render() {
     return (
       <Router>
@@ -63,6 +65,35 @@ class App extends React.Component<AppProps, AppState> {
       </Router>
     )  
   }
+
+*/
+
+render() {
+  return (
+    <Router>
+      <div className="app">
+        <Route 
+          exact={true} 
+          path="/" 
+          render={() => {
+            return (
+              <Home 
+                {...this.props} 
+                {...this.state}
+              />
+          )}} 
+        />
+        <Route 
+          path="/messages/:channelId" 
+          render={(props) => (
+            <Messages channelId={props.match.params.channelId} {...this.props} {...this.state}/>
+          )} 
+        />
+        <Route path="/newChannel" render={(props) => <NewChannel history={props.history} {...this.state}/>}/>
+      </div>
+    </Router>
+  )  
+}
 
   // addChannel = (channelName: string) => {
     // AppStore.addChannel(channelName)
