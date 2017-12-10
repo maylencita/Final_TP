@@ -1,6 +1,7 @@
 {
     "extends": ["tslint-react"],
     "rules": {
+        /*
         "align": [
             false,
             "parameters",
@@ -94,5 +95,6 @@
             "check-type",
             "check-typecast"
         ]
+    */
     }
 }
