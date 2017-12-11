@@ -5,7 +5,7 @@ import QuestionComponent from '../components/question'
 import MessageForm from '../components/messageForm'
 import { QuestionWithAnswers, User } from '../commons/models'
 import * as api from '../commons/api'
-import AppStore from '../store'
+import App from '../store'
 
 interface MessagesProps {
   appName: string
@@ -19,7 +19,6 @@ interface MessagesState {
 }
 
 class Messages extends React.Component<MessagesProps, MessagesState> {
-
   state: MessagesState = {
     messages: []
   }
@@ -38,7 +37,7 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
     .then(messages => {
       this.setState(() => ({messages: messages}))
     }).catch(error => {
-      console.log('Oops [componentWillReceiveProps] ', error)
+      console.error('Oops [componentWillReceiveProps] ', error)
     })
   }
 
@@ -52,7 +51,7 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
           {renderQuestions(this.state.messages)}
         </div>
         <div className="messagesContainer_footer">
-          <MessageForm channelId={this.props.channelId} questionToAnswer={this.props.questionToAnswer} />
+          <MessageForm channelId={this.props.channelId} questionToAnswer={this.props.questionToAnswer} user={this.props.user} />
           <div className="messagesContainer_notifBar" />
         </div>
       </Layout>
@@ -60,7 +59,7 @@ class Messages extends React.Component<MessagesProps, MessagesState> {
   }
 
   disableAnswer = () => {
-    AppStore.disableAnswerMode()
+    App.disableAnswerMode()
   }
 }
 

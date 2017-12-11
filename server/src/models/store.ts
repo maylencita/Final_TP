@@ -44,7 +44,7 @@ class Store {
       this.addUser({
         pseudo: payload.pseudo,
         avatar: payload.avatar,
-        points: 0,
+        points: 3,
         status: 'Connected'
       })
     }
@@ -60,7 +60,7 @@ class Store {
 
   addQuestion(question: Question){
     question.id = uuid.v4()
-    question.avatar = (this.state.users[this.state.users.findIndex(user => user.pseudo === question.emetteur)]).avatar;
+    question.avatar = (this.state.users[this.state.users.findIndex(user => user.pseudo === question.emetteur)]).avatar
     question.note = 0
     this.state = {
       ...this.state,
@@ -71,7 +71,7 @@ class Store {
 
   addAnswer(answer: Answer){
     answer.id = uuid.v4()
-    answer.avatar = (this.state.users[this.state.users.findIndex(user => user.pseudo === answer.emetteur)]).avatar;
+    answer.avatar = (this.state.users[this.state.users.findIndex(user => user.pseudo === answer.emetteur)]).avatar
     answer.note = 0
     this.state = {
       ...this.state,
@@ -81,11 +81,11 @@ class Store {
   }
 
   noteQuestion(note: {note: number}, questionId: string ){
-    const questions = this.state.questions;
+    const questions = this.state.questions
     if (Math.abs(note.note) < 6) {
       for (let q of questions) {
         if (q.id == questionId) {
-          q.note = note.note;
+          q.note = note.note
         }
       }
       this.state = {
@@ -97,11 +97,11 @@ class Store {
   }
 
   noteAnswer(note: {note: number}, answerId: string ){
-    const answers = this.state.answers;
+    const answers = this.state.answers
     if (Math.abs(note.note) < 6) {
       for (let a of answers) {
         if (a.id == answerId) {
-          a.note = note.note;
+          a.note = note.note
         }
       }
       this.state = {

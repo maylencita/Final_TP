@@ -28,4 +28,6 @@ router.post('/channels/:channelId/answers/:answerId/note', Api.noteAnswer)
 
 router.get('/questions', Api.getQuestions)
 
+router.get('/answers', Api.getAnswers)
+
 export default router

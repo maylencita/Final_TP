@@ -55,12 +55,12 @@ export function sendQuestion(question: QuestionPayload) {
 interface AnswerPayLoad {
   question_id: string,
   emetteur: string,
-  contenu: string,
+  content: string,
   destinataire: string
 }
 
 export function sendAnswer(answer: AnswerPayLoad) {
-  const url = `${SERVER_URL}/channels/${answer.destinataire}/questions`
+  const url = `${SERVER_URL}/channels/${answer.destinataire}/questions/${answer.question_id}`
   const method = 'PUT'
   return fetchJson<Array<Question>>(url, {
     method: method,

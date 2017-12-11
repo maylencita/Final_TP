@@ -27,7 +27,7 @@ class MessageForm extends React.Component<FormProps, FormState> {
     return (
       <form onSubmit={formTarget}>
         <InputText placeholder={placeholder} value={this.state.message} onChange={this.onTextChange}/>
-      </form>    
+      </form>
     )
   }
 
@@ -40,23 +40,23 @@ class MessageForm extends React.Component<FormProps, FormState> {
   sendQuestion = (event: Ev.Submit) => {
     api.sendQuestion({
       destinataire: this.props.channelId,
-      emetteur: (!!this.props.user?this.props.user.pseudo:"Administrateur"),
+      emetteur: (!!this.props.user ? this.props.user.pseudo : 'Administrateur'),
       content: this.state.message
     });
     this.setState({
-      message: ""
+      message: ''
     })
   }
 
-  sendAnswer() {
+  sendAnswer = (event: Ev.Submit) => {
     api.sendAnswer({
-      question_id: !!this.props.questionToAnswer ? this.props.questionToAnswer : 'none',
-      emetteur: (!!this.props.user?this.props.user.pseudo:"Administrateur"),
-      contenu: this.state.message,
+      question_id: !!this.props.questionToAnswer ? this.props.questionToAnswer : 'null',
+      emetteur: (!!this.props.user ? this.props.user.pseudo : 'Administrateur'),
+      content: this.state.message,
       destinataire: this.props.channelId
     })
     this.setState({
-      message: ""
+      message: ''
     })
   }
 }

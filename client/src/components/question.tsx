@@ -29,18 +29,18 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
 
   componentWillMount() {
     api.getAnswers().then(answers => {
-      const realAnswers = answers.filter(a => a.question_id === this.props.question.id);
+      const realAnswers = answers.filter(a => a.question_id === this.props.question.id)
       this.setState(() => ({
         ...this.state,
         answers: realAnswers
       }))
     }).catch(error => {
-      console.log('Oops [componentWillMount] ', error)
+      console.error('Oops [componentWillMount] ', error)
     })
   }
 
   render() {
-    const { question, answers, pseudo, avatar } = this.props
+    const { question, pseudo, avatar } = this.props
 
     return (
       <div className="message">
@@ -56,7 +56,7 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
               </div>
             </div>
             <div className="message_content_answers">
-              {answers.map(answer => {
+              {this.state.answers.map(answer => {
                 return <AnswerComponent userNickName={answer.emetteur} userIcon={answer.avatar} answerText={answer.content} key={answer.id} id={answer.id} answer={answer} />
               })}
             </div>
@@ -67,13 +67,12 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
           <button className="message_buttons_addPoints" onClick={this.addPoints}>+1</button>
           <button className="question_buttons_answer" onClick={this.answerQuestion}>A</button>
         </div>
-      </div>  
+      </div>
     )
-  }  
+  }
 
   addPoints = () => {
-    if (this.state.points < 5)
-    {
+    if (this.state.points < 5) {
       this.setState({
         ...this.state,
         points: this.state.points + 1

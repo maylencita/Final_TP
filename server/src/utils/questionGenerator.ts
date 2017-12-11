@@ -10,7 +10,7 @@ const generateQuestions = (channelId: string, total: number) => {
       emetteur: 'Administrateur',
       content: text,
       note: 0,
-      avatar: '>:@'
+      avatar: ':)'
     }
   })
 }
