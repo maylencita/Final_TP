@@ -4,6 +4,7 @@ import AnswerComponent from "./answer";
 import { UserIcon, UserName } from "./user";
 import { Question, Answer } from "../commons/models";
 import AppStore from "../store";
+import * as api from "../commons/api";
 
 interface QuestionProps {
   question: Question;
@@ -12,16 +13,37 @@ interface QuestionProps {
 
 interface QuestionState {
   points: number;
+  answers: Answer[];
 }
 
-// TODO
-// - afficher le bon userIcon
-// - modifier l'action d'ajouter un point pour envoyer l'information au serveur
-
 class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
-  state = {
-    points: 0
-  };
+  // state = {
+  //   points: 0
+  // };
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      points: 0,
+      answers: props.answers
+    };
+  }
+
+  componentWillMount() {
+    api
+      .getAnswers()
+      .then(answers => {
+        const realAnswers = answers.filter(
+          a => a.question_id === this.props.question.id
+        );
+        this.setState(() => ({
+          ...this.state,
+          answers: realAnswers
+        }));
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
   render() {
     const { question, answers } = this.props;
@@ -29,7 +51,7 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
     return (
       <div className="message">
         <div className="message_gutter">
-          <UserIcon userIcon={"ToD"} />
+          <UserIcon userIcon={""} />
         </div>
         <div className="message_content">
           <UserName userNickname={question.emetteur} />
@@ -42,7 +64,7 @@ class QuestionComponent extends React.Component<QuestionProps, QuestionState> {
                 return (
                   <AnswerComponent
                     userNickName={answer.emetteur}
-                    userIcon="^_^'"
+                    userIcon="-_-"
                     answerText={answer.content}
                     key={answer.id}
                   />
