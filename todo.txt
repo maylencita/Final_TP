@@ -1,3 +1,0 @@
-Ajouter les réponses,
-récupérer les points pour les questions et réponses pour éviter de démarrer à 0
-Et passer l'id de la question mere dans les reponses
