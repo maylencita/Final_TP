@@ -19,6 +19,8 @@ _app.use(function(req, res, next) {
 
 _app.use(bodyParser.json());
 
+_app.use(express.static('public'))
+
 _app.use('/', router)
 
 // catch 404 and forward to error handler

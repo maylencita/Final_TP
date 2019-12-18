@@ -11,9 +11,21 @@ export function ping(request: Request, response: Response){
   response.send({ ping: 'ok'})
 }
 
+export function addUser(request: Request, response: Response) {
+  let result = Store.addUser(request.body)
+  if(result) {
+    console.error('[!] Sending', Store.users())
+    response.send(Store.users())
+  } else
+    response.status(500).send({error: "Could not register user"})
+}
+
 export function registerUser(request: Request, response: Response) {
-  Store.login(request.body)
-  response.send(request.body)
+  let state = Store.login(request.body)
+  if (state)
+    response.send(state)
+  else
+    response.status(401).send({error: "User not found!"})
 }
 
 export function getUsers(request: Request, response: Response) {
@@ -33,6 +45,14 @@ export function addChannel(request: Request, response: Response) {
   }
 }
 
+export function updateChannels(request: Request, response: Response) {
+  if(Store.updateChannels(request.body)) {
+    response.send(Store.channels())
+  } else {
+    response.status(500).send({error: 'Could not save channels'})
+  }
+}
+
 export function readChannel(request: Request, response: Response) {
   const channelId = request.params.channelId
   if(!!channelId){
@@ -42,17 +62,39 @@ export function readChannel(request: Request, response: Response) {
 }
 
 export function addQuestion(request: Request, response: Response) {
-  response.send('TODO')
+  let channelId = request.params.channelId
+  if(Store.addQuestion(channelId, request.body)){
+    response.send(Store.channels())
+  } else {
+    response.status(500).send({error: 'Could not save question'})
+  }
 }
 
-export function sendAnswer(request: Request, response: Response) {
-  response.send('TODO')  
+export function addAnswer(request: Request, response: Response) {
+  let {channelId, questionId} = request.params
+  if(Store.addAnswer(channelId, questionId, request.body)){
+    response.send(Store.channels())
+  } else {
+    response.status(500).send({error: 'Could not update question'})
+  }
 }
 
 export function noteQuestion(request: Request, response: Response) {
-  response.send('TODO')  
+  let {channelId, questionId} = request.params
+  let { note } = request.body
+  if(Store.noteQuestion(channelId, questionId, note)){
+    response.send(Store.channels())
+  } else {
+    response.status(500).send({error: 'Could not update question'})
+  }
 }
 
 export function noteAnswer(request: Request, response: Response) {
-  response.send('TODO')  
+  let {channelId, questionId, answerId} = request.params
+  let { note } = request.body
+  if(Store.noteAnswer(channelId, questionId, answerId, note)){
+    response.send(Store.channels())
+  } else {
+    response.status(500).send({error: 'Could not update question'})
+  }
 }

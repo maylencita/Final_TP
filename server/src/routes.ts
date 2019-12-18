@@ -4,7 +4,7 @@ import * as Api from './controllers/ApiController'
 
 const router = express.Router()
 
-router.get('/', Api.getState)
+router.get('/', (request, response) => response.send("This is an API"))
 
 router.get('/ping', Api.ping)
 
@@ -12,18 +12,20 @@ router.post('/login', Api.registerUser)
 
 router.get('/users', Api.getUsers)
 
+router.post('/user', Api.addUser)
+
 router.get('/channels', Api.getChannels)
 
-router.put('/channels', Api.addChannel)
+router.post('/channel', Api.addChannel)
 
-router.get('/channels/:channelId/questions', Api.readChannel)
+router.put('/channels', Api.updateChannels)
 
-router.put('/channels/:channelId/questions', Api.addQuestion)
+router.post('/channels/:channelId/questions', Api.addQuestion)
 
-router.put('/channels/:channelId/questions/:questionId', Api.sendAnswer)
+router.post('/channels/:channelId/questions/:questionId', Api.addAnswer)
 
-router.post('/channels/:channelId/questions/:questionId/note', Api.noteQuestion)
+router.put('/channels/:channelId/questions/:questionId/note', Api.noteQuestion)
 
-router.post('/channels/:channelId/answers/:answerId/note', Api.noteAnswer)
+router.put('/channels/:channelId/questions/:questionId/answers/:answerId/note', Api.noteAnswer)
 
 export default router

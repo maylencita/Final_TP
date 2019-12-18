@@ -1,7 +1,7 @@
 export interface User {
-  pseudo: UserId
+  name: string
+  avatar?: string
   points: number
-  avatar: string
   status: 'Connected' | 'Offline' | 'Suspended'
 }
 
@@ -13,16 +13,15 @@ export type QuestionId = string
 
 export interface Question {
   id: string
-  destinataire: ChannelId
-  emetteur: UserId
+  user: User
   note: number
   content: string
+  answers: Array<Answer>
 }
 
 export interface Answer { 
   id: string
-  question_id: QuestionId
-  emetteur: UserId
+  user: User
   note: number
   content: string
 }
@@ -31,11 +30,11 @@ export interface Channel {
   name: string
   owner: UserId
   participants_ids : Array<UserId>
+  questions: Array<Question>
 }
 
 export interface ServerState {
   users : Array<User>
   channels : Array<Channel>
-  questions: Array<Question>
-  answers: Array<Answer>
+  user?: User
 }
